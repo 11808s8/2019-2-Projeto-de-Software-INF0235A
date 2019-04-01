@@ -1,0 +1,4 @@
+A ideia do projeto seria criar 3 jogos para auxiliar crianlas, adolescentes e adultos em processos de aprendizagem e entendimento da Língua Portuguesa.
+Os 3 jogos sendo separados para Ensino Fundamental, Ensino Médio e Educação de Jovens Adultos (EJA).
+Foram oferecidos 3 soluções: aplicativo para celulares, programa para windows e aplicação web. Hoje eles são jogados via impressão dos jogos em folhas normais.
+Conforme a cliente: "Se for pelo celular é mais prático pra jogar! Mas pelo computador é legal também (é até melhor se for aplicado em sala pra levar os alunos em um lab de informatica)".
