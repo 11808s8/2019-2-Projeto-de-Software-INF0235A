@@ -3,7 +3,8 @@
 ### Configuração do ambiente
 
 Para a execução do projeto, é necessário executar inicialmente o arquivo createvirtualenv.sh .
-Para prosseguir para a instalação, é necessário executar o comando:
+
+Para prosseguir para a instalação, é necessário executar o comando (na mesma pasta que fica o README.md):
 ```sh
 	$ source .venv/bin/activate
 ```
