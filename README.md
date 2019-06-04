@@ -36,7 +36,7 @@ http://127.0.0.1:8000/admin
 
 ## Tutorial Wagtail
 
-(Link do tutorial)[http://docs.wagtail.io/en/v2.0/getting_started/tutorial.html]
+[Link do tutorial](http://docs.wagtail.io/en/v2.0/getting_started/tutorial.html)
 
 
 ## !Important:
