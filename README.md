@@ -33,6 +33,11 @@ Senha administrador: admin123
 Endereço para acessar a página de administração do site:
 http://127.0.0.1:8000/admin
 
+## Tutorial Wagtail
+
+(Link do tutorial)[http://docs.wagtail.io/en/v2.0/getting_started/tutorial.html]
+
+
 ## !Important:
 Os comandos *source* e *deactivate* precisam ser executados toda vez para entrar e sair, respectivamente, do ambiente virtual.
 Isto permite que os pacotes instalados dentro do ambiente virtual fiquem disponíveis somente nele, sem interferir com pacotes globais de sua máquina :-) .
