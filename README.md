@@ -24,8 +24,8 @@ Para sair do ambiente virtual, é necessário dar o comando:
 
 Executar os comandos:
 ```sh
-    $ ./manage.py migrate
-    $ ./manage.py runserver
+    $ python3 manage.py migrate
+    $ python3 manage.py runserver
 ```
 
 Usuário administrador: admin
