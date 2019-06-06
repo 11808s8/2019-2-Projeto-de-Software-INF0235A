@@ -20,6 +20,11 @@ Para sair do ambiente virtual, é necessário dar o comando:
 	$ deactivate
 ```
 
+Instalar o wagtail se necessário:
+```sh
+    $ pip3 install wagtail 
+```
+
 ### Rodando o servidor
 
 Executar os comandos:
