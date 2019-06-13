@@ -13,6 +13,8 @@ Delete the line below if you're just getting started and want to remove the welc
 <link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
 {% endblock extra_css %}
 
+
+
 {% comment %} {% block body_class %}Teste{% endblock %} {% endcomment %}
 
 {% block content %}
@@ -20,6 +22,18 @@ Delete the line below if you're just getting started and want to remove the welc
 {% comment %}
 Delete the line below if you're just getting started and want to remove the welcome screen!
 {% endcomment %}
-
+<row>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <button type="button" class="btn btn-primary" id="btn-1">Teste</button>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+            <button type="button" class="btn btn-danger" id="btn-2">com bootstrap</button>
+    </div>
+</row>
 
 {% endblock content %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'js/home_page.js' %}"></script>
+
+{% endblock %}
