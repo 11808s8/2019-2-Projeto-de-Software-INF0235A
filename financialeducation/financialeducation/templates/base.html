@@ -27,7 +27,10 @@
             {# Override this in templates to add extra stylesheets #}
         {% endblock %}
     </head>
-
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        
+      </nav>
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
 
