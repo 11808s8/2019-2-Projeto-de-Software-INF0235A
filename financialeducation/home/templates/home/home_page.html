@@ -22,14 +22,35 @@ Delete the line below if you're just getting started and want to remove the welc
 {% comment %}
 Delete the line below if you're just getting started and want to remove the welcome screen!
 {% endcomment %}
-<row>
-    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-        <button type="button" class="btn btn-primary" id="btn-1">Teste</button>
+{# <div class="row"> #}
+    
+
+    <div class="d-flex justify-content-center align-items-center" style="height:400px;">
+        {# <div class="bg-dark">MIDDLE</div>     #}
+        
+            <!-- <button type="button" class="btn btn-lg bg-dark" id="btn-1">Teste</button>
+        
+            <button type="button" class="btn btn-lg bg-dark" id="btn-2">com bootstrap</button> -->
+        
+            <div class="card h-100" style="width: 18rem;">
+                <img class="card-img-top" src="{% static 'images/bettina.jpg' %}" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">Controle seus gastos!</h5>
+                  {# <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> #}
+                  <a href="#" class="btn btn-dark">Go somewhere</a>
+                </div>
+            </div>
+            <div class="card h-100" style="width: 18rem;">
+                <img class="card-img-top" src="{% static 'images/blog.jpeg' %}" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">Blog sobre Educação Financeira</h5>
+                  {# <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> #}
+                  <a href="#" class="btn btn-danger">Go somewhere</a>
+                </div>
+            </div>
+
     </div>
-    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-            <button type="button" class="btn btn-danger" id="btn-2">com bootstrap</button>
-    </div>
-</row>
+{# </div> #}
 
 {% endblock content %}
 
