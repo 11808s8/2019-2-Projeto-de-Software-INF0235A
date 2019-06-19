@@ -1,4 +1,5 @@
 {% load static wagtailuserbar %}
+{% load wagtailcore_tags %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -27,8 +28,8 @@
             {# Override this in templates to add extra stylesheets #}
         {% endblock %}
     </head>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar navbar-expand-lg navbar-light shadow p-3 mb-5">
+        <a class="navbar-brand" href="{% slugurl 'home' %}">Educação Financeira</a>
         
       </nav>
     <body class="{% block body_class %}{% endblock %}">
