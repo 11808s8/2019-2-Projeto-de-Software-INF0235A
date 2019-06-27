@@ -8,6 +8,9 @@ from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+
 
 @register_snippet
 class Category(models.Model):
@@ -20,6 +23,7 @@ class Category(models.Model):
         FieldPanel('category_type'),
     ]
 
+
     def __str__(self):
         return self.name
 
@@ -29,4 +33,21 @@ class Category(models.Model):
 
 class FormIndexPage(Page):
     template = "form/form_index_page.html"
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(self, request, *args, **kwargs)
+        query_renda = list(Category.objects.all().filter(category_type="renda").values_list('name', 'category_type'))
+        query_despesa = list(Category.objects.all().filter(category_type="despesa").values_list('name','category_type'))
+        lista_renda = []
+        lista_despesa = []
+        # print(query_renda)
+        # for linha in query_renda:
+        #     lista_renda.append([linha[0],linha.category_type])
+        # for linha in query_despesa:
+        #     lista_despesa.append([linha.name, linha.category_type])
+        lista_renda = json.dumps(query_renda, cls=DjangoJSONEncoder)
+        lista_despesa = json.dumps(query_despesa, cls=DjangoJSONEncoder)
+        # print(lista_renda)
+        context["categories_renda"] = lista_renda
+        context["categories_despesa"] = lista_despesa
+        return context
     

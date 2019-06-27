@@ -6,7 +6,30 @@
 
 {% block content %}
     <h1>{{ page.title }}</h1>
-    
-    <!-- Aqui vai o formulário -->
+    <div class="formulario">
 
+    </div>
+    <!-- Aqui vai o SCRIPT do formulário -->
+    <script> 
+        function processaRendas(rendas){
+            $(".formulario").append(_processaArray(rendas,"<h6>Rendas:</h6> <br><ul>"))
+        }
+
+        function _processaArray(array,html){
+            for(i=0;i<array.length;i++){
+                html += "<li>" + array[i][0] + "</li>";
+            }
+            html += "</ul>";
+            return html;
+        }
+
+        function processaDespesas(despesas){
+            $(".formulario").append(_processaArray(despesas,"<h6>Despesas:</h6> <br><ul>"))
+        }
+
+        // PASSA OS ARRAYS DO DJANGO PARA O JAVASCRIPT
+        processaRendas({{ categories_renda|safe }}); 
+        processaDespesas({{ categories_despesa|safe }});
+
+    </script>
 {% endblock %}
