@@ -12,3 +12,18 @@ body{
 
     background-color: #075B77;
 }
+
+.breadcrumb-nav{
+    background-color: transparent !important;
+}
+
+.breadcrumb{
+    background-color: transparent !important;
+}
+.breadcrumb .active{
+    color: #A5A48F !important;
+}
+
+.breadcrumb-item a{
+    color: #308282 !important;
+}
