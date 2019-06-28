@@ -16,8 +16,11 @@
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="sheet" role="tabpanel" aria-labelledby="renda-tab"></div>
-            <div class="tab-pane fade" id="sheet-despesa" role="tabpanel" aria-labelledby="despesa-tab"></div>
+                <div class="tab-pane fade show active" id="sheet" role="tabpanel" aria-labelledby="renda-tab"></div>
+                <div class="tab-pane fade" id="sheet-despesa" role="tabpanel" aria-labelledby="despesa-tab"></div>
+            </div>
+            <div id="resultados" >
+
             </div>
     </div>
     <!-- Aqui vai o SCRIPT do formulário -->
@@ -47,48 +50,62 @@
         let rendas = {{ categories_renda|safe }};
         let despesas = {{ categories_despesa|safe }};
         function montaFormulario(){
-            let html = "<h6>Rendas:</h6> <br>";
+            let html = "<div  class='row'><div class='col-md-4 col-sm-4 col-lg-4 col-xs-4'><h6>Rendas:</h6> </div></div>";
             for(i=0;i<rendas.length;i++){
                 idCelulaSoma ++;
-                html += rendas[i][0] + "<input type='text' data-cell='A"+ idCelulaSoma +"' /> <br>";       
+                html +="<div  class='row'>";
+                html +=    "<div class='col-md-2 col-sm-2 col-lg-2 col-xs-2'>";
+                html +=       rendas[i][0] + ":";
+                html +=    "</div>";
+                html +=    "<div class='col-md-2 col-sm-2 col-lg-2 col-xs-2'>";
+                html +=       "<input type='text' data-cell='A"+ idCelulaSoma +"' />";
+                html +=    "</div>";
+                html += "</div>";       
             }
-            html+= 'Renda:<div style="display:inline" type="text" data-cell="A'+ (idCelulaSoma+1) +'" data-formula="SUM(A1:A'+ idCelulaSoma+')" ></div>';
-            $('#sheet').append(html);    
+            let html_renda = '<div class="row">';
+            html_renda +=       '<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_renda +=          'Renda total:';
+            html_renda +=          '<div style="display:inline" type="text" data-cell="A'+ (idCelulaSoma+1) +'" data-formula="SUM(A1:A'+ idCelulaSoma+')" ></div>';
+            html_renda +=       '</div>';
+            html_renda +=    '</div>';
+            $('#sheet').append(html);
+            $('#resultados').append(html_renda);    
 
             html = "<div  class='row'><div class='col-md-4 col-sm-4 col-lg-4 col-xs-4'><h6>Despesa:</h6> </div> </div><br>";
             idCelulaSoma++;
             idCelulaDespesa = idCelulaSoma;
             for(i=0;i<despesas.length;i++){
                 idCelulaDespesa ++;
-                html +="<div  class='row'><div class='col-md-2 col-sm-2 col-lg-2 col-xs-2 justify-content-center'>"+ despesas[i][0] + "</div><div class='col-md-2 col-sm-2 col-lg-2 col-xs-2'><input type='text' data-cell='A"+ idCelulaDespesa +"' /> </div></div><br>";       
+                html +="<div  class='row'>";
+                html +=" <div class='col-md-2 col-sm-2 col-lg-2 col-xs-2'>";
+                html +=    despesas[i][0];
+                html +=  ":</div>"
+                html +=    "<div class='col-md-2 col-sm-2 col-lg-2 col-xs-2'>";
+                html +=       "<input type='text' data-cell='A"+ idCelulaDespesa +"' />";
+                html +=    "</div>";
+                html += "</div>";       
             }
 
-            html+= 'Despesas Totais:<div style="display:inline" type="text" data-cell="A'+ (idCelulaDespesa+1) +'" data-formula="SUM(A'+(idCelulaSoma+1)+':A'+ idCelulaDespesa+')"></div>';
-            html+='<br>Total:<div style="display:inline" type="text" data-cell="A'+ (idCelulaDespesa+2) +'" data-formula="A'+idCelulaSoma+'-A'+ (idCelulaDespesa+1)+'" ></div>'
+            let html_despesa = '<div class="row">';
+            html_despesa +=       '<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_despesa +=          'Despesa Total:';
+            html_despesa +=          '<div style="display:inline" type="text" data-cell="A'+ (idCelulaDespesa+1) +'" data-formula="SUM(A'+(idCelulaSoma+1)+':A'+ idCelulaDespesa+')">';
+            html_despesa +=          '</div>';
+            html_despesa +=       '</div>';
+            html_despesa +=     '</div>';
+
+            let html_total = '<div class="row">';
+            html_total +=       '<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_total +=          'Total:<div style="display:inline" type="text" data-cell="A'+ (idCelulaDespesa+2) +'" data-formula="A'+idCelulaSoma+'-A'+ (idCelulaDespesa+1)+'" ></div>';
+            html_total +=       '</div>';
+            html_total +=    '</div>';
+            $('#resultados').append(html_despesa);
+            $('#resultados').append(html_total);
             $('#sheet-despesa').append(html);
             $('.formulario').calx();
         }
-        montaFormulario({{ categories_renda|safe }});
-        
-        // function processaRendas(rendas){
-        //     $(".formulario").append(_processaArray(rendas,"<h6>Rendas:</h6> <br><ul>"))
-        // }
 
-        function _processaArray(array,html){
-            for(i=0;i<array.length;i++){
-                html += "<li>" + array[i][0] + "</li>";
-            }
-            html += "</ul>";
-            return html;
-        }
-
-        function processaDespesas(despesas){
-            $(".formulario").append(_processaArray(despesas,"<h6>Despesas:</h6> <br><ul>"))
-        }
-        
-        // PASSA OS ARRAYS DO DJANGO PARA O JAVASCRIPT
-        // processaRendas({{ categories_renda|safe }}); 
-        // processaDespesas({{ categories_despesa|safe }});
+        montaFormulario();
 
     </script>
     
