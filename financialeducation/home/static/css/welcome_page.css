@@ -37,6 +37,7 @@ body {
 .card:hover,
 .card:focus {
 transform: scale3d(1.006, 1.006, 1);
+
 }
 .card:hover:after,
 .card:focus:after {
@@ -46,11 +47,13 @@ transform: scale3d(1.006, 1.006, 1);
 a {
     background-color: transparent;
     color: #308282;
-    text-decoration: underline;
+    text-decoration: none;
+    z-index:0;
+
 }
 
 a:hover {
-    color: #ea1b10;
+    text-decoration: inherit;
 }
 
 h1,
