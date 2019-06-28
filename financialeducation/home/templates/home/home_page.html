@@ -26,32 +26,25 @@ Delete the line below if you're just getting started and want to remove the welc
     
 
     <div class="d-flex justify-content-center align-items-center" style="height:400px;">
-        {# <div class="bg-dark">MIDDLE</div>     #}
+        {# <div class="bg-dark">MIDDLE</div> #}
         
-            <!-- <button type="button" class="btn btn-lg bg-dark" id="btn-1">Teste</button>
-        
-            <button type="button" class="btn btn-lg bg-dark" id="btn-2">com bootstrap</button> -->
-        
-            <div class="card h-100 shadow-lg p-3 mb-5 bg-white rounded" style="width: 18rem;">
-                
-                <img class="card-img-top" src="{% static 'images/bettina.jpg' %}" alt="Card image cap">
-                <div class="card-body">
-                  <h5 class="card-title card-link">Controle melhor os seus gastos!</h5>
-                  <a href="{% slugurl 'formulário-de-planejamento-financeiro' %}" class="stretched-link">
-                  </a>
-                  {# Go somewhere #}
+            <a href="{% slugurl 'form' %}" class="card h-100 shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="card" style="width: 15rem; display: inline-block">
+                    <img class="card-img-top" src="{% static 'images/bettina.jpg' %}" alt="Card image cap"  height="200px">
+                    <div class="card-body">
+                        <h5 class="card-title">Controle melhor os seus gastos!</h5>
+                    </div>
                 </div>
-                
-            </div>
-            <div class="card h-100 shadow-lg p-3 mb-5 bg-white rounded" style="width: 18rem;">
-                <img class="card-img-top" src="{% static 'images/blog.jpeg' %}" alt="Card image cap" height="170px" width="auto">
-                <div class="card-body ">
-                  <h5 class="card-title">Aprenda mais sobre Educação Financeira</h5>
-                  {# <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> #}
-                  <a href="#" class="stretched-link"></a>
+            </a>
+            
+            <a href="{% slugurl 'blog' %}" class="card h-100 shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="card" style="width: 15rem; display: inline-block">
+                    <img class="card-img-top" src="{% static 'images/blog.jpeg' %}" alt="Card image cap" height="200px">
+                    <div class="card-body">
+                        <h5 class="card-title">Aprenda mais sobre Educação Financeira</h5>
+                    </div>
                 </div>
-            </div>
-
+            </a>
     </div>
 {# </div> #}
 
