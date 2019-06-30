@@ -8,14 +8,14 @@ html {
     box-sizing: inherit;
 }
 
-body {
+.body {
     /* max-width: 960px; */
     min-height: 100vh;
     margin: 0 auto;
     /* padding: 0 15px; */
-    font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
-    line-height: 1.25;
-}
+    /* font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif; */
+    /* line-height: 1.25; */
+} 
 
 .card {
   transition: transform .5s;
@@ -158,13 +158,13 @@ svg:not(:root) {
     margin: 15px auto 0;
 }
 
-.footer {
+/* .footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     border-top: 1px solid #e6e6e6;
     padding: 10px;
-}
+} */
 
 .option {
     display: block;
