@@ -1,8 +1,8 @@
 
 nav {
     background-color: #A5A48F;
-    
 }
+
 nav a{
     color: #F9F8F9 !important;
     text-decoration: none;
@@ -27,3 +27,34 @@ body{
 .breadcrumb-item a{
     color: #308282 !important;
 }
+
+footer{
+    background-color: #A5A48F;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+  }
+body {
+/* Margin bottom by footer height */
+margin-bottom: 60px;
+}
+footer {
+    display:block !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    /* Set the fixed height of the footer here */
+    height: 60px !important;
+    line-height: 60px !important; /* Vertically center the text there */
+    background-color: #f5f5f5;
+    
+}
+
+footer .h6{
+    font-weight: 500 !important;
+}
+  
