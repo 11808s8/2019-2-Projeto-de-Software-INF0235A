@@ -28,39 +28,46 @@
             {# Override this in templates to add extra stylesheets #}
         {% endblock %}
     </head>
-    <nav class="navbar navbar-expand-lg navbar-light shadow p-3 mb-5">
-        <a class="navbar-brand" href="{% slugurl 'home' %}">Educação Financeira</a>
-        
-      </nav>
-
-      {% if self.get_ancestors|length > 1 %}
-        <div class="container">
-            <nav aria-label="breadcrumb" class="breadcrumb-nav">
-                <ol class="breadcrumb">
-                
-                {% for page in self.get_ancestors %}
-                {% if page.is_root == False %}
-                    <li class="breadcrumb-item active" aria-current="page"><a href={% pageurl page %}>{{ page.title }}</a></li>
-                {% endif %}
-                {% endfor %}
-                    <li class="breadcrumb-item active" aria-current="page">{{ self.title }}</li>
-                </ol>
-            </nav>
-        </div>
-        {% endif %}
+    
     <body class="{% block body_class %}{% endblock %}">
+            <nav class="navbar navbar-expand-lg navbar-light shadow p-3 mb-5">
+                <a class="navbar-brand" href="{% slugurl 'home' %}">Educação Financeira</a>
+            
+            </nav>
+    
+            {% if self.get_ancestors|length > 1 %}
+            <div class="container">
+                <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                    <ol class="breadcrumb">
+                    
+                    {% for page in self.get_ancestors %}
+                    {% if page.is_root == False %}
+                        <li class="breadcrumb-item active" aria-current="page"><a href={% pageurl page %}>{{ page.title }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                        <li class="breadcrumb-item active" aria-current="page">{{ self.title }}</li>
+                    </ol>
+                </nav>
+            </div>
+            {% endif %}
         {% wagtailuserbar %}
 
         {% block content %}{% endblock %}
 
+        {% include "footer.html" %} 
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/financialeducation.js' %}"></script>
         
         <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+                })
+        </script>
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
         {% endblock %}
     </body>
+       
 </html>
