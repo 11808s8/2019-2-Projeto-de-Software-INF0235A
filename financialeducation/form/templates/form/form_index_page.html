@@ -23,8 +23,14 @@
             <div id="resultados" >
 
             </div>
+            <div class="row  justify-content-center align-items-center pb-5">
+                <div id="graficos">
+                        <!-- <div data-formula="GRAPH(A3:A6, ['type=bar'])" style="width: 250px; height: 250px; padding: 0px; position: relative;"></div> -->
+                </div>
+            </div>
     </div>
     <!-- Aqui vai o SCRIPT do formulário -->
+    <script src="{% static 'js/jquery.flot.0.8.3.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/calx/jquery-calx-2.2.6.min.js' %}" type="text/javascript"></script>
     <script> 
         $('#despesa-tab').on('click', function(){
@@ -56,7 +62,7 @@
                 idCelulaSoma ++;
                 html +="<div  class='row'>";
                 html +=    "<div class='col-md-2 col-sm-2 col-lg-2 col-xs-2'>";
-                html +=       rendas[i][0] + ":";
+                html +=     "<span data-cell='B"+ idCelulaSoma+"'>" + rendas[i][0] + "</span>:";
                 html +=    "</div>";
                 html +=    "<div class='col-md-2 col-sm-2 col-lg-2 col-xs-2'>";
                 html +=       "<input type='text' data-cell='A"+ idCelulaSoma +"' />";
@@ -65,8 +71,8 @@
             }
             let html_renda = '<div class="row">';
             html_renda +=       '<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">';
-            html_renda +=          'Renda total:';
-            html_renda +=          '<div style="display:inline" type="text" data-cell="A'+ (idCelulaSoma+1) +'" data-formula="SUM(A1:A'+ idCelulaSoma+')" ></div>';
+            html_renda +=          '<span data-cell="C1">Renda total</span>:';
+            html_renda +=          '<div style="display:inline" type="text" data-cell="H6" data-formula="SUM(A1:A'+ idCelulaSoma+')" ></div>';
             html_renda +=       '</div>';
             html_renda +=    '</div>';
             $('#sheet').append(html);
@@ -79,8 +85,8 @@
                 idCelulaDespesa ++;
                 html +="<div  class='row'>";
                 html +=" <div class='col-md-2 col-sm-2 col-lg-2 col-xs-2'>";
-                html +=    despesas[i][0];
-                html +=  ":</div>"
+                html +=   "<span data-cell='B"+ idCelulaDespesa+"'>" + despesas[i][0] + "</span>:";
+                html +=  "</div>"
                 html +=    "<div class='col-md-2 col-sm-2 col-lg-2 col-xs-2'>";
                 html +=       "<input type='text' data-cell='A"+ idCelulaDespesa +"' />";
                 html +=    "</div>";
@@ -89,24 +95,32 @@
 
             let html_despesa = '<div class="row">';
             html_despesa +=       '<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">';
-            html_despesa +=          'Despesa Total:';
-            html_despesa +=          '<div style="display:inline" type="text" data-cell="A'+ (idCelulaDespesa+1) +'" data-formula="SUM(A'+(idCelulaSoma+1)+':A'+ idCelulaDespesa+')">';
+            html_despesa +=          '<span data-cell="D1">Despesa Total</span>:';
+            html_despesa +=          '<div style="display:inline" type="text" data-cell="I6" data-formula="SUM(A'+(idCelulaSoma+1)+':A'+ idCelulaDespesa+')">';
             html_despesa +=          '</div>';
             html_despesa +=       '</div>';
             html_despesa +=     '</div>';
 
             let html_total = '<div class="row">';
             html_total +=       '<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">';
-            html_total +=          'Total:<div style="display:inline" type="text" data-cell="A'+ (idCelulaDespesa+2) +'" data-formula="A'+idCelulaSoma+'-A'+ (idCelulaDespesa+1)+'" ></div>';
+            html_total +=          'Total:<div style="display:inline" type="text" data-cell="A'+ (idCelulaDespesa+2) +'" data-formula="H6-I6" ></div>';
             html_total +=       '</div>';
             html_total +=    '</div>';
             $('#resultados').append(html_despesa);
             $('#resultados').append(html_total);
             $('#sheet-despesa').append(html);
+            // idCelulaDespesa++;
+            let html_grafico_valores = 'H6:I6';
+            let html_grafico_legendas = 'C1:D1';
+            let html_grafico = '<div data-formula="GRAPH('+ html_grafico_valores +', [\'type=bar\',  \'orientation=horizontal\', \'label='+html_grafico_legendas+'\'])" style="width: 1000px; height: 250px; padding: 0px; position: relative;">';
+            html_grafico += '</div>'
+            $('#graficos').append(html_grafico);
             $('.formulario').calx();
         }
 
         montaFormulario();
+        
+        
 
     </script>
     
