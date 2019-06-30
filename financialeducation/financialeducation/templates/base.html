@@ -30,11 +30,7 @@
     </head>
     
     <body class="{% block body_class %}{% endblock %}">
-            <nav class="navbar navbar-expand-lg navbar-light shadow p-3 mb-5">
-                <a class="navbar-brand" href="{% slugurl 'home' %}">Educação Financeira</a>
-            
-            </nav>
-    
+            {% include 'navbar.html' %}
             {% if self.get_ancestors|length > 1 %}
             <div class="container">
                 <nav aria-label="breadcrumb" class="breadcrumb-nav">
