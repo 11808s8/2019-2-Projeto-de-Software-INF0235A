@@ -8,6 +8,10 @@
     
     <div class="formulario container">
             <h1>{{ page.title }}</h1>
+            <p> Para realizar o planejamento financeiro, preencha a aba rendas do formulário com as rendas adequadas às categorias 
+                <br>
+                e a aba despesas do mesmo modo. Por fim, o sistema realizará o cálculo para você!
+            </p>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="renda-tab" data-toggle="tab" data-target="#renda" role="tab" aria-controls="home" aria-selected="true">Rendas</a>
@@ -57,7 +61,8 @@
         let rendas = {{ categories_renda|safe }};
         let despesas = {{ categories_despesa|safe }};
         function montaFormulario(){
-            let html = "<div  class='row'><div class='col-md-4 col-sm-4 col-lg-4 col-xs-4'><h6>Rendas:</h6> </div></div>";
+            let html = "<div  class='row'>";
+                html+= "<div class=' col-md-4 col-sm-4 col-lg-4 col-xs-4'><h6>Rendas:</h6> </div></div><br>";
             for(i=0;i<rendas.length;i++){
                 idCelulaSoma ++;
                 html +="<div  class='row'>";
@@ -70,9 +75,11 @@
                 html += "</div>";       
             }
             let html_renda = '<div class="row">';
-            html_renda +=       '<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_renda +=       '<div class="box-calculo col-md-2 col-sm-2 col-lg-2 col-xs-2">';
             html_renda +=          '<span data-cell="C1">Renda total</span>:';
-            html_renda +=          '<div style="display:inline" type="text" data-cell="H6" data-formula="SUM(A1:A'+ idCelulaSoma+')" ></div>';
+            html_renda +=       '</div>';
+            html_renda +=       '<div class="box-calculo col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_renda +=          'R$<div style="display:inline" type="text" data-cell="H6" data-formula="SUM(A1:A'+ idCelulaSoma+')" ></div>';
             html_renda +=       '</div>';
             html_renda +=    '</div>';
             $('#sheet').append(html);
@@ -94,16 +101,20 @@
             }
 
             let html_despesa = '<div class="row">';
-            html_despesa +=       '<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_despesa +=       '<div class="box-calculo col-md-2 col-sm-2 col-lg-2 col-xs-2">';
             html_despesa +=          '<span data-cell="D1">Despesa Total</span>:';
-            html_despesa +=          '<div style="display:inline" type="text" data-cell="I6" data-formula="SUM(A'+(idCelulaSoma+1)+':A'+ idCelulaDespesa+')">';
-            html_despesa +=          '</div>';
+            html_despesa +=       '</div>';
+            html_despesa +=       '<div class="box-calculo col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_despesa +=          'R$<div style="display:inline" type="text" data-cell="I6" data-formula="SUM(A'+(idCelulaSoma+1)+':A'+ idCelulaDespesa+')"></div>';
             html_despesa +=       '</div>';
             html_despesa +=     '</div>';
 
             let html_total = '<div class="row">';
-            html_total +=       '<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">';
-            html_total +=          'Total:<div style="display:inline" type="text" data-cell="A'+ (idCelulaDespesa+2) +'" data-formula="H6-I6" ></div>';
+            html_total +=       '<div class="box-calculo-bottom box-calculo col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_total +=          'Total:';
+            html_total +=       '</div>';
+            html_total +=       '<div class="box-calculo-bottom box-calculo col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_total +=           'R$<div style="display:inline" type="text" data-cell="A'+ (idCelulaDespesa+2) +'" data-formula="H6-I6" ></div>';
             html_total +=       '</div>';
             html_total +=    '</div>';
             $('#resultados').append(html_despesa);
