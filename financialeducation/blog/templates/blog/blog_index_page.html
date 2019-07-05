@@ -15,7 +15,7 @@
     <hr>
     {% for post in blogpages %}
         <div class="row">
-            <div class="col-1">
+            <div class="col-5">
                 <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
             </div>
             <div class="col-2 box-data-post">
@@ -31,9 +31,6 @@
             <div class="col-6">
                 {{ post.specific.body|richtext }} 
             </div>
-        </div>
-        <div class="row">
-            
         </div>
         <hr>
     {% endfor %} 
