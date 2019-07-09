@@ -1,14 +1,89 @@
-{% extends "base.html" %} {% load wagtailcore_tags %} {% block body_class %}template-blogpage{% endblock %} {% block content %}
+{% extends "base.html" %} 
+{% load comments %}
+{% load static %}
+{% load wagtailcore_tags %} 
+{% block body_class %}template-blogpage{% endblock %} 
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/blog_page.css' %}">
+{% endblock %}
+
+{% block content %}
 <h1>{{ page.title }}</h1>
 <p class="meta">{{ page.date }}</p>
 
 <div class="intro">{{ page.intro }}</div>
-
 {{ page.body|richtext }}
 
-<p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+<!-- <p><a href="{{ page.get_parent.url }}">Return to blog</a></p> -->
 
 {% for post in page.get_children %} {% with post=post.specific %}
+<!-- {{ post.page_ptr_id }} -->
 <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
 <p>{{ post.intro }}</p>
-{{ post.body|richtext }} {% endwith %} {% endfor %} {% endblock %}
+
+{{ post.body|richtext }} {% endwith %} {% endfor %} 
+
+
+
+<h3>Seção de Comentários</h3>
+
+{% get_comment_list for page as comment_list %}
+{% for comment in comment_list %}
+<p>Postado por: {{ comment.user_name }} em {{ comment.submit_date }}</p>
+<p>Comentário: {{ comment.comment }}</p>
+{% endfor %}
+
+<hr>
+
+{% get_comment_form for page as form %}
+<!-- A context variable called form is created with the necessary hidden
+fields, timestamps and security hashes -->
+<table>
+    <label> Deixe seu comentário abaixo: </label>
+  <form action="{% pageurl page %}" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    {% ifequal field.name "honeypot" %}
+    
+    <div style="display:none;">{ field }</div>
+    <!-- Customize the "comment" field, say, make CSS changes -->
+    {% else %}
+    <tr></tr>
+    <th>
+    {% ifequal field.name "comment" %}
+        Comentário:
+    <!-- Customize the "comment" field, say, make CSS changes -->
+    {% endifequal %}
+    {% ifequal field.name "name" %}
+        Nome:
+    <!-- Customize the "comment" field, say, make CSS changes -->
+    {% endifequal %}
+    {% ifequal field.name "email" %}
+        Email:
+    <!-- Customize the "comment" field, say, make CSS changes -->
+    {% endifequal %}
+    {% ifequal field.name "url" %}
+        URL para seu site:
+    <!-- Customize the "comment" field, say, make CSS changes -->
+    {% endifequal %}
+    </th>
+        <td>{{field}}</td>
+    </tr>
+    {% endifequal %}
+    {% endfor %}
+    
+    <!-- {{ form }} -->
+    <tr>
+      <td colspan="2">
+        <input type="submit" name="submit" value="Comentar">
+        <!-- <input type="submit" name="preview" value="Preview"> -->
+      </td>
+    </tr>
+  </form>
+</table>
+
+
+
+
+{% endblock %}
