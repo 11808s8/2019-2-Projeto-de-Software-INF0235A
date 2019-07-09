@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     'form',
     'blog',
     'about',
-    
+    'django_comments',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'modelcluster',
     'taggit',
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -171,6 +172,7 @@ MEDIA_URL = '/media/'
 
 WAGTAIL_SITE_NAME = "financialeducation"
 
+SITE_ID = 1
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
