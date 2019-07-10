@@ -3,6 +3,9 @@
     border-color:black; 
     border-width: 2em;
 } */
+a{
+    color: #308282 !important;
+}
 
 .data-post{
     font-size: .8em;

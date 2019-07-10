@@ -9,94 +9,90 @@
 {% endblock %}
 
 {% block content %}
-<div class="row h-100 justify-content-center align-items-center">
-    <div class="col-12 mb-2 bg-gray " >
-        <h1 class="font-weight-light text-center">{{ page.title }}</h1>
-    </div>
-</div>
-<div align="center">
-  <p class="meta">{{ page.date }}</p>
-</div>
 <div class="container">
-    <div align="center"><strong>{{ page.intro }}</strong></div>
-    <p>
-    <div class="col-md-6">
-      {{ page.body|richtext }}
-    </div>
-  </p>
-</div>
+  <div class="row h-100 justify-content-center align-items-center">
+      <div class="col-12 mb-2 bg-gray " >
+          <h1 class="font-weight-light text-center">{{ page.title }}</h1>
+      </div>
+  </div>
+  <div align="center">
+    <p class="meta">{{ page.date }}</p>
+  </div>
+  <div class="container">
+      <div align="center"><strong>{{ page.intro }}</strong></div>
+      <p>
+      <div class="col-6">
+        {{ page.body|richtext }}
+      </div>
+    </p>
+  </div>
 
-  <!-- <p><a href="{{ page.get_parent.url }}">Return to blog</a></p> -->
+    <!-- <p><a href="{{ page.get_parent.url }}">Return to blog</a></p> -->
 
-  <div class="ml-5">
-  {% for post in page.get_children %} {% with post=post.specific %}
-  <!-- {{ post.page_ptr_id }} -->
-  <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-  <p>{{ post.intro }}</p>
+    <div class="col-5">
+    {% for post in page.get_children %} {% with post=post.specific %}
+    <!-- {{ post.page_ptr_id }} -->
+    <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+    <p>{{ post.intro }}</p>
 
-  {{ post.body|richtext }} {% endwith %} {% endfor %} 
+    {{ post.body|richtext }} {% endwith %} {% endfor %} 
 
-  <div class="formulario ">
-  <h3><strong>Seção de Comentários</strong></h3>
+    <div class="formulario ">
+    <h3><strong>Seção de Comentários</strong></h3>
 
-  {% get_comment_list for page as comment_list %}
-  {% for comment in comment_list %}
-  <br>
-  <p><strong>Postado por: {{ comment.user_name }} em {{ comment.submit_date }}</strong></p>
-  <p>Comentário: {{ comment.comment }}</p>
-  {% endfor %}
+    {% get_comment_list for page as comment_list %}
+    {% for comment in comment_list %}
+    <br>
+    <p><strong>Postado por: {{ comment.user_name }} em {{ comment.submit_date }}</strong></p>
+    <p>Comentário: {{ comment.comment }}</p>
+    {% endfor %}
 
-  {% get_comment_form for page as form %}
-  <!-- A context variable called form is created with the necessary hidden
-  fields, timestamps and security hashes -->
-  <table>
-      <br>
-      <label> <strong> <i>Deixe seu comentário abaixo:</i></strong></label>
-    <form action="{% pageurl page %}" method="post">
-      {% csrf_token %}
-      {% for field in form %}
-      {% ifequal field.name "honeypot" %}
+    {% get_comment_form for page as form %}
+        <br>
+        <label> <strong> <i>Deixe seu comentário abaixo:</i></strong></label>
+      <form action="{% pageurl page %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        
+        {% if field.name == "comment" or field.name == "name" or field.name == "email" or field.name == "url" %}
+        <div class="form-group">
+            <label>
+        {% endif %}
 
-      <div style="display:none;">{ field }</div>
-      <!-- Customize the "comment" field, say, make CSS changes -->
-      <div>
-      {% else %}
-    
-      <th style="width: 300px; height: 20px">
-      {% ifequal field.name "comment" %}
-          Comentário:
-      <!-- Customize the "comment" field, say, make CSS changes -->
-      {% endifequal %}
-      {% ifequal field.name "name" %}
-          Nome:
-      <!-- Customize the "comment" field, say, make CSS changes -->
-      {% endifequal %}
-    </div>
-      {% ifequal field.name "email" %}
-          Email:
-      <!-- Customize the "comment" field, say, make CSS changes -->
-      {% endifequal %}
-      {% ifequal field.name "url" %}
-          URL para seu site:
-      <!-- Customize the "comment" field, say, make CSS changes -->
-      {% endifequal %}
-      </th>
-          <td>{{field}}</td>
-      </tr>
-      {% endifequal %}
-      {% endfor %}
-      <!-- {{ form }} -->
-      <tr>
-        <td colspan="2">
-          <div class="float-right">
-              <input type="submit" class="btn-primary" name="submit" value="Comentar">
+        {% ifequal field.name "honeypot" %}
+        <div style="display:none;">{ field }</div>
+        {% endifequal %}
+        
+        {% ifequal field.name "comment" %}
+            Comentário:
+        {% endifequal %}
+        {% ifequal field.name "name" %}
+            Nome:
+        {% endifequal %}
+        {% ifequal field.name "email" %}
+            Email:
+        {% endifequal %}
+        {% ifequal field.name "url" %}
+            URL para seu site:
+        {% endifequal %}
+      
+
+        {% if field.name == "comment" or field.name == "name" or field.name == "email" or field.name == "url" %}
+          </label>
+              {{field}}
           </div>
-          <!-- <input type="submit" name="preview" value="Preview"> -->
-        </td>
-      </tr>
-    </form>
-  </table>
-</div>
+        {% elif field.name != "honeypot" %}
+          {{field}}
+        {% endif %}
+      
+        {% endfor %}
+          <div class="form-group">
+              <button type="submit" class="btn btn-primary" name="submit">Comentar</button>
+          </div>
+      </form>
+    </table>
+  </div>
+  </div>
 </div>
 
 

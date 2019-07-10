@@ -5,3 +5,43 @@
 .template-blogpage{
     margin-bottom: 69px;
 }
+
+form{
+    margin-bottom: 20px !important;
+}
+
+
+/* textarea {
+    resize: none;
+} */
+@media (min-width: 600px) 
+{
+    textarea {
+        height:50px;
+    }
+}
+input, textarea {
+    background: none;
+    color: #c6c6c6;
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 320px;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #c6c6c6;
+}
+input:focus, textarea:focus {
+    outline: none;
+}
+input:focus ~ label, textarea:focus ~ label, input:valid ~ label, textarea:valid ~ label {
+    top: -14px;
+    font-size: 12px;
+    color: #2196f3;
+}
+
+button {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+         border-radius: 0 !important;
+}
