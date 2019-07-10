@@ -9,81 +9,95 @@
 {% endblock %}
 
 {% block content %}
-<h1>{{ page.title }}</h1>
-<p class="meta">{{ page.date }}</p>
+<div class="row h-100 justify-content-center align-items-center">
+    <div class="col-12 mb-2 bg-gray " >
+        <h1 class="font-weight-light text-center">{{ page.title }}</h1>
+    </div>
+</div>
+<div align="center">
+  <p class="meta">{{ page.date }}</p>
+</div>
+<div class="container">
+    <div align="center"><strong>{{ page.intro }}</strong></div>
+    <p>
+    <div class="col-md-6">
+      {{ page.body|richtext }}
+    </div>
+  </p>
+</div>
 
-<div class="intro">{{ page.intro }}</div>
-{{ page.body|richtext }}
+  <!-- <p><a href="{{ page.get_parent.url }}">Return to blog</a></p> -->
 
-<!-- <p><a href="{{ page.get_parent.url }}">Return to blog</a></p> -->
+  <div class="ml-5">
+  {% for post in page.get_children %} {% with post=post.specific %}
+  <!-- {{ post.page_ptr_id }} -->
+  <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+  <p>{{ post.intro }}</p>
 
-{% for post in page.get_children %} {% with post=post.specific %}
-<!-- {{ post.page_ptr_id }} -->
-<h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-<p>{{ post.intro }}</p>
+  {{ post.body|richtext }} {% endwith %} {% endfor %} 
 
-{{ post.body|richtext }} {% endwith %} {% endfor %} 
+  <div class="formulario ">
+  <h3><strong>Seção de Comentários</strong></h3>
 
+  {% get_comment_list for page as comment_list %}
+  {% for comment in comment_list %}
+  <br>
+  <p><strong>Postado por: {{ comment.user_name }} em {{ comment.submit_date }}</strong></p>
+  <p>Comentário: {{ comment.comment }}</p>
+  {% endfor %}
 
+  {% get_comment_form for page as form %}
+  <!-- A context variable called form is created with the necessary hidden
+  fields, timestamps and security hashes -->
+  <table>
+      <br>
+      <label> <strong> <i>Deixe seu comentário abaixo:</i></strong></label>
+    <form action="{% pageurl page %}" method="post">
+      {% csrf_token %}
+      {% for field in form %}
+      {% ifequal field.name "honeypot" %}
 
-<h3>Seção de Comentários</h3>
-
-{% get_comment_list for page as comment_list %}
-{% for comment in comment_list %}
-<p>Postado por: {{ comment.user_name }} em {{ comment.submit_date }}</p>
-<p>Comentário: {{ comment.comment }}</p>
-{% endfor %}
-
-<hr>
-
-{% get_comment_form for page as form %}
-<!-- A context variable called form is created with the necessary hidden
-fields, timestamps and security hashes -->
-<table>
-    <label> Deixe seu comentário abaixo: </label>
-  <form action="{% pageurl page %}" method="post">
-    {% csrf_token %}
-    {% for field in form %}
-    {% ifequal field.name "honeypot" %}
+      <div style="display:none;">{ field }</div>
+      <!-- Customize the "comment" field, say, make CSS changes -->
+      <div>
+      {% else %}
     
-    <div style="display:none;">{ field }</div>
-    <!-- Customize the "comment" field, say, make CSS changes -->
-    {% else %}
-    <tr></tr>
-    <th>
-    {% ifequal field.name "comment" %}
-        Comentário:
-    <!-- Customize the "comment" field, say, make CSS changes -->
-    {% endifequal %}
-    {% ifequal field.name "name" %}
-        Nome:
-    <!-- Customize the "comment" field, say, make CSS changes -->
-    {% endifequal %}
-    {% ifequal field.name "email" %}
-        Email:
-    <!-- Customize the "comment" field, say, make CSS changes -->
-    {% endifequal %}
-    {% ifequal field.name "url" %}
-        URL para seu site:
-    <!-- Customize the "comment" field, say, make CSS changes -->
-    {% endifequal %}
-    </th>
-        <td>{{field}}</td>
-    </tr>
-    {% endifequal %}
-    {% endfor %}
-    
-    <!-- {{ form }} -->
-    <tr>
-      <td colspan="2">
-        <input type="submit" name="submit" value="Comentar">
-        <!-- <input type="submit" name="preview" value="Preview"> -->
-      </td>
-    </tr>
-  </form>
-</table>
-
-
+      <th style="width: 300px; height: 20px">
+      {% ifequal field.name "comment" %}
+          Comentário:
+      <!-- Customize the "comment" field, say, make CSS changes -->
+      {% endifequal %}
+      {% ifequal field.name "name" %}
+          Nome:
+      <!-- Customize the "comment" field, say, make CSS changes -->
+      {% endifequal %}
+    </div>
+      {% ifequal field.name "email" %}
+          Email:
+      <!-- Customize the "comment" field, say, make CSS changes -->
+      {% endifequal %}
+      {% ifequal field.name "url" %}
+          URL para seu site:
+      <!-- Customize the "comment" field, say, make CSS changes -->
+      {% endifequal %}
+      </th>
+          <td>{{field}}</td>
+      </tr>
+      {% endifequal %}
+      {% endfor %}
+      <!-- {{ form }} -->
+      <tr>
+        <td colspan="2">
+          <div class="float-right">
+              <input type="submit" class="btn-primary" name="submit" value="Comentar">
+          </div>
+          <!-- <input type="submit" name="preview" value="Preview"> -->
+        </td>
+      </tr>
+    </form>
+  </table>
+</div>
+</div>
 
 
 {% endblock %}
