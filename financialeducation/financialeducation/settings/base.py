@@ -106,8 +106,7 @@ DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #         'NAME': 'financial_education_db',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres'
+#         'USER': 'postgres'
 #     }
 # }
 
