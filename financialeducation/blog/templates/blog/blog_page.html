@@ -50,7 +50,7 @@
     {% get_comment_form for page as form %}
         <br>
         <label> <strong> <i>Deixe seu comentário abaixo:</i></strong></label>
-      <form action="{% pageurl page %}" method="post">
+      <form action="{% comment_form_target %}" method="post">
         {% csrf_token %}
         {% for field in form %}
         
@@ -86,6 +86,7 @@
         {% endif %}
       
         {% endfor %}
+        <input type="hidden" name="next" value="{% pageurl page %}" />
           <div class="form-group">
               <button type="submit" class="btn btn-primary" name="submit">Comentar</button>
           </div>
