@@ -1,18 +1,140 @@
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
-
+{% load static %}
 {% block body_class %}template-formindexpage{% endblock %}
 
 {% block content %}
-    <h1>{{ page.title }}</h1>
+    
+    <div class="formulario container">
+            <h1>{{ page.title }}</h1>
+            <p> Para realizar o planejamento financeiro, preencha a aba rendas do formulário com as rendas adequadas às categorias 
+                <br>
+                e a aba despesas do mesmo modo. Por fim, o sistema realizará o cálculo para você!
+            </p>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="renda-tab" data-toggle="tab" data-target="#renda" role="tab" aria-controls="home" aria-selected="true">Rendas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="despesa-tab" data-toggle="tab" data-target="#despesa" role="tab" aria-controls="profile" aria-selected="false">Despesas</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="sheet" role="tabpanel" aria-labelledby="renda-tab"></div>
+                <div class="tab-pane fade" id="sheet-despesa" role="tabpanel" aria-labelledby="despesa-tab"></div>
+            </div>
+            <div id="resultados" >
 
-    <div class="intro">{{ page.intro|richtext }}</div>
+            </div>
+            <div class="row  justify-content-center align-items-center pb-5">
+                <div id="graficos">
+                        <!-- <div data-formula="GRAPH(A3:A6, ['type=bar'])" style="width: 250px; height: 250px; padding: 0px; position: relative;"></div> -->
+                </div>
+            </div>
+    </div>
+    <!-- Aqui vai o SCRIPT do formulário -->
+    <script src="{% static 'js/jquery.flot.0.8.3.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/calx/jquery-calx-2.2.6.min.js' %}" type="text/javascript"></script>
+    <script> 
+        $('#despesa-tab').on('click', function(){
+            // console.log("Teste");
+            $('#sheet').removeClass('active');
+            $('#sheet').removeClass('show');
+            $('#sheet').addClass('fade');
+            $('#sheet-despesa').addClass('active');
+            $('#sheet-despesa').addClass('show');
+            // $('#sheet-despesa').tab();
+        });
+        $('#renda-tab').on('click', function(){
+            // $('#sheet-despesa').removeClass('active');
+            // $('#sheet').addClass('active');
+            $('#sheet-despesa').removeClass('active');
+            $('#sheet-despesa').removeClass('show');
+            $('#sheet-despesa').addClass('fade');
+            $('#sheet').addClass('active');
+            $('#sheet').addClass('show');
+            // $('#sheet').tab();
+        });
+        let idCelulaSoma = 0;
+        let idCelulaDespesa = 0;
+        let rendas = {{ categories_renda|safe }};
+        let despesas = {{ categories_despesa|safe }};
+        function montaFormulario(){
+            let html = "<div  class='row'>";
+                html+= "<div class=' col-md-4 col-sm-4 col-lg-4 col-xs-4'><h6></h6> </div></div><br>";
+            
+            for(i=0;i<rendas.length;i++){
+                idCelulaSoma ++;
+                html +="<div  class='row'>";
+                html +=    "<div class='col-md-2 col-sm-2 col-lg-2 col-xs-2' style='height: 40px'>";
+                html +=     "<span data-cell='B"+ idCelulaSoma+"'>" + rendas[i][0] + "</span>:";
+                html +=    "</div>";
+                html +=    "<div class='col-md-2 col-sm-2 col-lg-2 col-xs-2'>";
+                html +=       "<input type='text' data-cell='A"+ idCelulaSoma +"' />";
+                html +=    "</div>";
+                html += "</div>";       
+            }
+            let html_renda = '<div class="row">';
+            html_renda +=       '<div class="box-calculo col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_renda +=          '<span data-cell="C1" style="color: green">Renda total</span>:';
+            html_renda +=       '</div>';
+            html_renda +=       '<div class="box-calculo col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_renda +=          'R$<div style="display:inline" type="text" data-cell="H6" data-formula="SUM(A1:A'+ idCelulaSoma+')" ></div>';
+            html_renda +=       '</div>';
+            html_renda +=    '</div>';
+            $('#sheet').append(html);
+            $('#resultados').append(html_renda);    
 
-    {% for post in page.get_children %}
-        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-        {{ post.specific.intro }}
-        {{ post.specific.body|richtext }}
-    {% endfor %}
+            html = "<div  class='row'><div class='col-md-4 col-sm-4 col-lg-4 col-xs-4'><h6></h6> </div> </div><br>";
+            idCelulaSoma++;
+            idCelulaDespesa = idCelulaSoma;
+            for(i=0;i<despesas.length;i++){
+                idCelulaDespesa ++;
+                html +="<div  class='row'>";
+                html +=" <div class='col-md-2 col-sm-2 col-lg-2 col-xs-2' style='height: 40px'>";
+                html +=   "<span data-cell='B"+ idCelulaDespesa+"'>" + despesas[i][0] + "</span>:";
+                html +=  "</div>"
+                html +=    "<div class='col-md-2 col-sm-2 col-lg-2 col-xs-2'>";
+                html +=       "<input type='text' data-cell='A"+ idCelulaDespesa +"' />";
+                html +=    "</div>";
+                html += "</div>";       
+            }
 
+            let html_despesa = '<div class="row">';
+            html_despesa +=       '<div class="box-calculo col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_despesa +=          '<span data-cell="D1" style="color: red">Despesa Total</span>:';
+            html_despesa +=       '</div>';
+            html_despesa +=       '<div class="box-calculo col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_despesa +=          'R$<div style="display:inline" type="text" data-cell="I6" data-formula="SUM(A'+(idCelulaSoma+1)+':A'+ idCelulaDespesa+')"></div>';
+            html_despesa +=       '</div>';
+            html_despesa +=     '</div>';
+
+            let html_total = '<div class="row">';
+            html_total +=       '<div class="box-calculo-bottom box-calculo col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_total +=          '<strong>' + 'Total:' + '</strong>';
+            html_total +=       '</div>';
+            html_total +=       '<div class="box-calculo-bottom box-calculo col-md-2 col-sm-2 col-lg-2 col-xs-2">';
+            html_total +=           'R$<div style="display:inline" type="text" data-cell="A'+ (idCelulaDespesa+2) +'" data-formula="H6-I6" ></div>';
+            html_total +=       '</div>';
+            html_total +=    '</div>';
+            $('#resultados').append(html_despesa);
+            $('#resultados').append(html_total);
+            $('#sheet-despesa').append(html);
+            // idCelulaDespesa++;
+            let html_grafico_valores = 'H6:I6';
+            let html_grafico_legendas = 'C1:D1';
+            let html_grafico = '<div data-formula="GRAPH('+ html_grafico_valores +', [\'type=bar\',  \'orientation=horizontal\', \'label='+html_grafico_legendas+'\'])" style="width: 1000px; height: 250px; padding: 0px; position: relative;">';
+            html_grafico += '</div>'
+            $('#graficos').append(html_grafico);
+            $('.formulario').calx();
+        }
+
+        montaFormulario();
+        
+        
+
+    </script>
+    
+    
 {% endblock %}

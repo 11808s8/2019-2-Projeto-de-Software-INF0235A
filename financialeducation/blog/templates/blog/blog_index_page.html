@@ -1,0 +1,44 @@
+{% extends "base.html" %} 
+
+{% load wagtailcore_tags static %} 
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/blog_index_page.css' %}">
+{% endblock %}
+
+{% block body_class %}template-blogindexpage{% endblock %} {% block content %}
+<div class="container h-100 blog-index">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-12 mb-2 bg-gray " >
+            <h1 class="font-weight-light text-center">{{ page.title }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="intro">{{ page.intro|richtext }}</div>
+    </div>
+    <hr>
+    {% for post in blogpages %}
+        <div class="row">
+            <div class="col-5">
+                <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+            </div>
+            <div class="col-2 box-data-post">
+                <span class="data-post">{{ post.specific.date }}</span>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-6">
+                {{ post.specific.intro }} 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ post.specific.body|richtext }} 
+            </div>
+        </div>
+        <hr>
+    {% endfor %} 
+</div>
+{% endblock %}
+    

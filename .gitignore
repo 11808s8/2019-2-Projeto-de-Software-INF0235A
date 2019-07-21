@@ -1,2 +1,2 @@
 .venv/
-financialeducation/*/__pycache__
+financialeducation/**/__pycache__

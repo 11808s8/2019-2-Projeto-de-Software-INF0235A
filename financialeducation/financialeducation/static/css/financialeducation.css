@@ -1,0 +1,75 @@
+
+nav {
+    background-color: #A5A48F;
+}
+
+nav a{
+    color: #F9F8F9 !important;
+    text-decoration: none;
+}
+
+body{
+
+    background-color: #075B77;
+}
+
+.breadcrumb-nav{
+    background-color: transparent !important;
+}
+
+.breadcrumb{
+    background-color: transparent !important;
+}
+.breadcrumb .active{
+    color: #A5A48F !important;
+}
+
+.breadcrumb-item a{
+    color: #308282 !important;
+}
+
+footer{
+    background-color: #A5A48F;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+  }
+body {
+/* Margin bottom by footer height */
+margin-bottom: 60px;
+}
+footer {
+    display:block !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    /* Set the fixed height of the footer here */
+    height: 60px !important;
+    line-height: 60px !important; /* Vertically center the text there */
+    background-color: #f5f5f5;
+    margin-top:160px;
+}
+
+footer .h6{
+    font-weight: 500 !important;
+}
+
+#graficos {
+    padding-bottom:100px;
+}
+  
+.box-calculo{
+    padding-top:10px;
+    padding-bottom: 10px;
+    /* border-bottom-style:solid !important;
+    border-bottom: .04px;
+    border-bottom-color: black; */
+}
+
+.box-calculo-bottom{
+    margin-bottom:30px;
+}

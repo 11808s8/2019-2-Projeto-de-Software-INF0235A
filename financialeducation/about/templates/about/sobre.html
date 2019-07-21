@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load wagtailcore_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'pdf/pdf.doc' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-12 mb-2 bg-gray " >
+                <h1 class="font-weight-light text-center">{{ page.title }}</h1>
+            </div>
+        </div>
+        <p>Este projeto foi desenvolvido pelos alunos Adriano Gomes da Silva, Bruno Caregnatto, Leopoldo C. Reginato e Venicius Bregalda</p>
+        <p>para a disciplina de Projeto de Software da Universidade de Caxias do Sul, período 2/2019.</p>
+        <p>A stakeholder solicitante do projeto, Viviane Huf Corrêa pode ser contactada mediante o seguinte email: vhcorrea@ucs.br</p>
+        <a href="{% static 'pdf/doc.pdf' %}">Clique aqui para acessar o documento .pdf com as especificações do projeto</a>
+    </div>
+{% endblock %}
